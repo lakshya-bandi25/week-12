@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: week12-service
+  name: register-service
 spec:
   selector:
-    app: week12 # must match deployment labels
+    app: register
+  type: NodePort
   ports:
     - protocol: TCP
-      port: 5000 # Service port (external access)
-      targetPort: 5000 # Flask app port inside container
-      nodePort: 30085 # NodePort (range 30000-32767)
-  type: NodePort
-  
+      port: 5001
+      targetPort: 5001
+      nodePort: 30085
