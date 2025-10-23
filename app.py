@@ -11,6 +11,7 @@ def submit():
     username = request.form.get('username')
     password = request.form.get('pwd')
 
+    # Validation
     if not username:
         return "<script>alert('Username cannot be empty.');window.history.back();</script>"
     elif not password:
@@ -26,4 +27,5 @@ def result():
     return render_template('result.html', username=username)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # host='0.0.0.0' makes the Flask app accessible outside Docker container
+    app.run(debug=True, host='0.0.0.0', port=5000)
