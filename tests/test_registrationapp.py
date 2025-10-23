@@ -6,7 +6,7 @@ from selenium.webdriver.common.alert import Alert
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-BASE_URL = "http://127.0.0.1:5000/"  # Flask default port
+BASE_URL = "http://127.0.0.1:5001/"  # Must match Flask port
 
 @pytest.fixture
 def setup_teardown():
@@ -58,10 +58,10 @@ def test_valid_input(setup_teardown):
     driver = setup_teardown
     driver.get(BASE_URL)
     driver.find_element(By.NAME, "username").send_keys("lakshya_123")
-    driver.find_element(By.NAME, "pwd").send_keys("123")
+    driver.find_element(By.NAME, "pwd").send_keys("Password123")
     driver.find_element(By.NAME, "sb").click()
     time.sleep(2)
     current_url = driver.current_url
-    assert "/submit" in current_url
+    assert "/result" in current_url
     body_text = driver.find_element(By.TAG_NAME, "body").text
     assert "Hello, lakshya_123! Welcome to the website" in body_text
