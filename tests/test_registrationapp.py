@@ -6,7 +6,7 @@ from selenium.webdriver.common.alert import Alert
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-BASE_URL = "http://127.0.0.1:5001/"  # Must match Flask port
+BASE_URL = "http://127.0.0.1:5000/"  # Must match Flask port
 
 @pytest.fixture
 def setup_teardown():
