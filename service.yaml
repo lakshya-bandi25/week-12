@@ -8,6 +8,6 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 5000        # Service port
-      targetPort: 5000  # Container port matches Flask
-      nodePort: 30085    # Access from outside cluster
+      port: 5000       # Changed to 5000
+      targetPort: 5000 # Changed to 5000
+      nodePort: 30085
