@@ -1,42 +1,36 @@
 pipeline {
     agent any
-
-    environment {
-        BASE_URL = "http://127.0.0.1:5000/"
-    }
-
+   
     stages {
 
-        stage('Install Dependencies & Run Selenium Tests') {
+        stage('Run Selenium Tests with pytest') {
             steps {
-                echo "Installing dependencies and running Selenium Tests"
+                echo "Running Selenium Tests using pytest"
                 bat 'pip install -r requirements.txt'
-                // Start Flask app in background
                 bat 'start /B python app.py'
-                // Wait for server to start
                 bat 'ping 127.0.0.1 -n 5 > nul'
-                // Run pytest
                 bat 'pytest -v --maxfail=1 --disable-warnings'
             }
         }
 
+
         stage('Build Docker Image') {
             steps {
-                echo "Building Docker Image"
-                bat 'docker build -t lakshyabandi25/week12:t5 .'
+                echo "Build Docker Image"
+                bat "docker build -t lakshyabandi25/week12:t5 ."
             }
         }
 
         stage('Docker Login') {
             steps {
-                bat 'docker login -u lakshyabandi25 -p Lakshya.bandi'
+                bat 'docker login -u lakshyabandi25 -p lakshya.bandi'
             }
         }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
-                echo "Pushing Docker Image to Docker Hub"
-                bat 'docker push lakshyabandi25/week12:t5'
+                echo "Push Docker Image to Docker Hub"
+                bat "docker push lakshyabandi25/week12:t5"
             }
         }
 
