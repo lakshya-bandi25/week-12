@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: register
-        image: lakshyabandi25/week12:t5
+        image: teju898/week12:t5
         imagePullPolicy: Always
         ports:
-        - containerPort: 5000  # Changed to 5000
+        - containerPort: 5001
         env:
         - name: FLASK_ENV
           value: production
