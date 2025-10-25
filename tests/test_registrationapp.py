@@ -6,8 +6,6 @@ from selenium.webdriver.common.alert import Alert
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-BASE_URL = "http://127.0.0.1:5000/"  # Port changed to 5000
-
 @pytest.fixture
 def setup_teardown():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -20,9 +18,10 @@ def get_alert_text(driver):
     alert.accept()
     return text
 
+# Test 1: Empty username
 def test_empty_username(setup_teardown):
     driver = setup_teardown
-    driver.get(BASE_URL)
+    driver.get("http://127.0.0.1:5001/")
     driver.find_element(By.NAME, "username").clear()
     driver.find_element(By.NAME, "pwd").send_keys("Password123")
     driver.find_element(By.NAME, "sb").click()
@@ -30,9 +29,10 @@ def test_empty_username(setup_teardown):
     alert_text = get_alert_text(driver)
     assert alert_text == "Username cannot be empty."
 
+# Test 2: Empty password
 def test_empty_password(setup_teardown):
     driver = setup_teardown
-    driver.get(BASE_URL)
+    driver.get("http://127.0.0.1:5001/")
     driver.find_element(By.NAME, "username").send_keys("lakshya_123")
     driver.find_element(By.NAME, "pwd").clear()
     driver.find_element(By.NAME, "sb").click()
@@ -40,21 +40,23 @@ def test_empty_password(setup_teardown):
     alert_text = get_alert_text(driver)
     assert alert_text == "Password cannot be empty."
 
+# Test 3: Short password
 def test_short_password(setup_teardown):
     driver = setup_teardown
-    driver.get(BASE_URL)
+    driver.get("http://127.0.0.1:5001/")
     driver.find_element(By.NAME, "username").send_keys("lakshya_123")
-    driver.find_element(By.NAME, "pwd").send_keys("123")
+    driver.find_element(By.NAME, "pwd").send_keys("abc@123")
     driver.find_element(By.NAME, "sb").click()
     time.sleep(1)
     alert_text = get_alert_text(driver)
     assert alert_text == "Password must be at least 6 characters long."
 
+# Test 4: Valid input
 def test_valid_input(setup_teardown):
     driver = setup_teardown
-    driver.get(BASE_URL)
+    driver.get("http://127.0.0.1:5001/")
     driver.find_element(By.NAME, "username").send_keys("lakshya_123")
-    driver.find_element(By.NAME, "pwd").send_keys("123456")
+    driver.find_element(By.NAME, "pwd").send_keys("abc@123")
     driver.find_element(By.NAME, "sb").click()
     time.sleep(2)
     current_url = driver.current_url
