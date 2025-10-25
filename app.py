@@ -1,29 +1,26 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Response
 
 app = Flask(__name__)
+app.secret_key = "secretkey"
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('form.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    username = request.form.get('username')
-    password = request.form.get('pwd')
+    username = request.form.get('username', '').strip()
+    password = request.form.get('pwd', '').strip()
 
-    if not username:
-        return "<script>alert('Username cannot be empty.');window.history.back();</script>"
-    elif not password:
-        return "<script>alert('Password cannot be empty.');window.history.back();</script>"
+    if username == "":
+        return Response("<script>alert('Username cannot be empty.'); window.location.href='/'</script>")
+    elif password == "":
+        return Response("<script>alert('Password cannot be empty.'); window.location.href='/'</script>")
     elif len(password) < 6:
-        return "<script>alert('Password must be at least 6 characters long.');window.history.back();</script>"
+        return Response("<script>alert('Password must be at least 6 characters long.'); window.location.href='/'</script>")
     else:
-        return redirect(url_for('result', username=username))
-
-@app.route('/result')
-def result():
-    username = request.args.get('username')
-    return render_template('result.html', username=username)
+        return render_template('greeting.html', name=username)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)  # Port changed to 5000
+    app.run(host='0.0.0.0', port=5001,debug=True)
