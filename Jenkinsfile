@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Build Docker Image"
-                bat "docker build -t lakshyabandi25/week12:t5 ."
+                bat "docker build -t lakshyabandi25/week 12:t5 ."
             }
         }
 
@@ -30,7 +30,7 @@ pipeline {
         stage('Push Docker Image to Docker Hub') {
             steps {
                 echo "Push Docker Image to Docker Hub"
-                bat "docker push lakshyabandi25/week12:t5"
+                bat "docker push lakshyabandi25/week 12:t5"
             }
         }
 
