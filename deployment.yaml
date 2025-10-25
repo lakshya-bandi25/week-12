@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: register
-        image: lakshyabandi25/week12:t5
+        image: lakshyabandi25/week 12:t5
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
